@@ -6,20 +6,20 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+const port = 5000;
 
 const server = app.listen(5000, () =>
   console.log('Server started on 5000')
 );
 
-const port = 5000;
-
 app.get("/", (req, res) => {
-  res.send("Hey this is my API running 🥳");
+  res.send("Hey this is my API running1 🥳");
 });
 
 const io = socket(server, {
   cors: {
     origin: [
+      'http://localhost:3000',
       'https://beta.pindogo.com', // Local development
       'http://beta.pindogo.com',
       'https://pindogo.com',
