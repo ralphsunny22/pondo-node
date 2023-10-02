@@ -17,14 +17,12 @@ app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
 });
 
-app.use(cors({
-  origin: ['http://localhost:3000',]
-}));
-
 const io = socket(server, {
   cors: {
     origin: [
-      'http://localhost:3000', // Local development
+      'https://beta.pindogo.com', // Local development
+      'http://beta.pindogo.com',
+      'https://pindogo.com',
     ],
     credentials: true,
   },
