@@ -6,10 +6,21 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+const router = express.Router();
 
-const server = app.listen(process.env.PORT, () =>
-  console.log(`Server started on ${process.env.PORT}`)
+const server = app.listen(5000, () =>
+  console.log('Server started on 5000')
 );
+
+
+
+const port = 5000;
+
+router.get("/", (req,res)=>{
+    res.json({
+        "hello":"Its working!"
+    })
+})
 
 const io = socket(server, {
   cors: {
