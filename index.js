@@ -11,16 +11,21 @@ const server = app.listen(5000, () =>
   console.log('Server started on 5000')
 );
 
-
 const port = 5000;
 
 app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
 });
 
+// app.use(cors({
+//   origin: ['https://www.section.io', 'https://www.google.com/']
+// }));
+
 const io = socket(server, {
   cors: {
-    origin: "*",
+    origin: [
+      'http://localhost:3000', // Local development
+    ],
     credentials: true,
   },
 });
