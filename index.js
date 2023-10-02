@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
 });
 
-// app.use(cors({
-//   origin: ['https://www.section.io', 'https://www.google.com/']
-// }));
+app.use(cors({
+  origin: ['http://localhost:3000',]
+}));
 
 const io = socket(server, {
   cors: {
@@ -48,9 +48,23 @@ io.on("connection", (socket) => {
     console.log('userId-' + userId + ': ', socket.id);
   });
 
+  // socket.on("disconnect", () => {
+  //   onlineUsersArray = onlineUsersArray.filter((user) => user.socketId !== socket.id);
+  //   io.emit("getOnlineUsers", onlineUsersArray);
+  // });
+
   socket.on("disconnect", () => {
+    // Handle disconnecting online users
     onlineUsersArray = onlineUsersArray.filter((user) => user.socketId !== socket.id);
     io.emit("getOnlineUsers", onlineUsersArray);
+
+    // Handle leaving a group (if applicable)
+    if (groupId) {
+      console.log(`Client ${socket.id} disconnected from group ${groupId}`);
+      socket.leave(groupId);
+    } else {
+      console.log(`Client ${socket.id} disconnected`);
+    }
   });
 
   socket.on("send-msg", (data) => {
@@ -85,10 +99,10 @@ io.on("connection", (socket) => {
     console.log('groupMessage: ', data);
   });
 
-  socket.on("disconnect", () => {
-    console.log(`Client ${socket.id} disconnected`);
-    socket.leave(groupId);
-  });
+  // socket.on("disconnect", () => {
+  //   console.log(`Client ${socket.id} disconnected`);
+  //   socket.leave(groupId);
+  // });
   //end group chat
 
   
