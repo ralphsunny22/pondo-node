@@ -4,6 +4,7 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
+
 app.use(cors());
 app.use(express.json());
 const port = 5000;
@@ -18,12 +19,7 @@ app.get("/", (req, res) => {
 
 const io = socket(server, {
   cors: {
-    origin: [
-      'http://localhost:3000',
-      'https://beta.pindogo.com', // Local development
-      'http://beta.pindogo.com',
-      'https://pindogo.com',
-    ],
+    origin: "*",
     credentials: true,
   },
 });
