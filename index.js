@@ -7,9 +7,9 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
-const port = 5000;
+const port = 8080;
 
-const server = app.listen(5000, () =>
+const server = app.listen(8080, () =>
   console.log('Server started on 5000')
 );
 
